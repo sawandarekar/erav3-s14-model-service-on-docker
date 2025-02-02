@@ -1,0 +1,3 @@
+create python application file for frontend with gradio library which will be used to create a simple application with a sample text input, max token length 1000, and a submit button.
+add backend service in appplication which will call another api to get the data.
+To create UI for the application, use better ui library.
