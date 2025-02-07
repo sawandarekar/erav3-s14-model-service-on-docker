@@ -90,7 +90,7 @@ docker logs text-gen-backend
 
 # Rebuild and restart both containers
 docker-compose up --build -d  # If using docker-compose
-
+```
 ### Using Docker Compose (Recommended)
 ```bash
 # Start all services
