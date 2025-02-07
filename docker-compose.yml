@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  text-gen-backend:
+    build:
+      context: .
+      dockerfile: Docker.backend
+    container_name: text-gen-backend
+    ports:
+      - "8000:8000"
+    networks:
+      - text-gen-network
+    restart: unless-stopped
+
+  text-gen-frontend:
+    build:
+      context: .
+      dockerfile: Docker.frontend
+    container_name: text-gen-frontend
+    ports:
+      - "7860:7860"
+    networks:
+      - text-gen-network
+    environment:
+      - BACKEND_URL=http://text-gen-backend:8000
+    restart: unless-stopped
+
+networks:
+  text-gen-network:
+    driver: bridge 

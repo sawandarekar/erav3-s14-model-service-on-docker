@@ -1,22 +1,32 @@
 import gradio as gr
 import requests
 import json
+import os
+import logging
+
+# Configure logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+# Get backend URL from environment variable, default to localhost if not set
+BACKEND_URL = os.getenv('BACKEND_URL', 'http://localhost:8000')
 
 def process_text(text, max_length):
     if not text:
         return "Please enter some text before submitting"
     
+    logger.info(f"requesting received at Frontend for text: {text} and max_length: {max_length}")
     try:
-        # Call backend API
+        # Call backend API using environment variable
         response = requests.post(
-            "http://localhost:8000/process",
+            f"{BACKEND_URL}/process",
             json={
                 "text": text,
                 "max_length": max_length
             }
         )
-        print("response : ", response.json())
-        print("response status code : ", response.status_code)
+        # logger.info("response : ", response.json())
+        # logger.info("response status code : ", response.status_code)
         if response.status_code == 200:
             result = response.json()
             return json.dumps(result.get("data").get("generated_text"), indent=2)

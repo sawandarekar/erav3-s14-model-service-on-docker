@@ -1,13 +1,14 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import logging
+from TextProcessor import generate_text
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 app = Flask(__name__)
-CORS(app)  # Enable CORS for all routes
+CORS(app)  # Enable CORS for all route
 
 @app.route('/process', methods=['POST'])
 def process_text():
@@ -50,7 +51,9 @@ def process_text():
             }), 400
             
         # Process the text (placeholder for actual text generation logic)
-        generated_text = f"Generated text based on input (max length: {max_length}): {input_text}"
+        #generated_text = f"Generated text based on input (max length: {max_length}): {input_text}"
+
+        generated_text = generate_text(input_text, max_length)
         
         # Prepare successful response
         response = {
